@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body {
-background: linear-gradient(135deg, #93c5fd, #a5b4fc);
+background: linear-gradient(135deg, #0375f8, #b9fca5);
 }
 p{
     margin: 15px 0;
@@ -20,18 +20,27 @@ pre{
 .container{
     width: 1000px;
     margin: 0 auto;
-    background: #fff;
+    background: #ffffff;
     padding: 20px;
+    border-radius: 10px;
 }
 
 .header{
     text-align: center;
     font-weight: 700;
     color: #2d3748;
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
+    background: #aa222200;
+}
+.header p{
+    font-size: 40px;
+    color:#000;
+}
+.upload-section{
+    display: flex;
+    column-gap: 10px;
 }
 .upload-area{
+    width: 100%;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -42,28 +51,30 @@ pre{
     transition: all 200ms ease;
 }
 .upload-area:hover{
-    border-color: #4a5568;
-    background-color: #b4cde7;
+    border-color: #67b65b;
+    background-color: #bafab1;
+    border-radius: 10px;
 }
 .upload-icon{
     font-size: 4rem;
 }
 .upload-text{
     font-size: 1.2rem;
-    color: #4a5568;
 }
 .btn{
 width: 200px; 
 border-radius: 5px;
-background-color: #4a5568;
+background-color: #0e4b01;
 color: #ffffff;
 padding: 10px 20px;
 font-weight: 600;
-transition: all 200ms ease;
+transition: all 300ms ease;
 }
 .btn:hover{
-    background-color: #2d3748;
+    background-color: #1eff00;
     cursor: pointer;
+    transform: translateY(-5px);
+    color: #000;
 }
 .process{
     text-align: center;
@@ -77,19 +88,6 @@ transition: all 200ms ease;
     color: #FFF;
     white-space: pre-wrap;
     text-align: left;   
-}
-.C100-content{
-    background-color: green;
-}
-.C170-content{
-    background-color: blue;
-}.C190-content{
-    background-color: yellow;
-}
-.colunas{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 50px;
 }
 .conteudo{
     background-color: #cbd5e0;

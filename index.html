@@ -1,27 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Processor</title>
     <link rel="stylesheet" href="css/style.css">
-    
+
 </head>
+
 <body>
     <div class="header container">
         <h1> 📂Upload ➡️ 🤖 LLM ➡️🗃️Download</h1>
-        <p>Sistema inteligente de processamento de arquivos</p>
+        <p>🔍 NF-STOCK Validador 🔍</p>
     </div>
     <div class="upload-section container">
-        <div class="upload-area " id ="upload-area">
+        <div class="upload-area " id="upload-area">
             <div class="upload-icon">
                 📂
             </div>
             <div class="upload-text">
-                Arraste seus arquivos aqui ou clique para selecionar
+                Clique para selecionar
             </div>
             <button class="btn" id="btn-arquivo">Selecionar Arquivos</button>
-            <input type="file" id="file-input"/>
+            <input type="file" id="file-input" />
+            <div class="file-info">
+                <strong>Tipos de arquivos suportados:</strong>
+                .xlsx <br>
+                <strong>Tamanho máximo:</strong> Ainda não definido
+            </div>
+        </div>
+        <div class="upload-area " id="upload-area2">
+            <div class="upload-icon">
+                📂
+            </div>
+            <div class="upload-text">
+                Arraste aqui o ANEXO 1
+            </div>
+            <button class="btn" id="btn-arquivo2">Selecionar Arquivos</button>
+            <input type="file" id="file-input2" />
             <div class="file-info">
                 <strong>Tipos de arquivos suportados:</strong>
                 .PDF <br>
@@ -35,8 +52,8 @@
             <pre id="area-erros" class="erro"></pre>
             <div id="empty-state">
                 <div class="empty-icon">🗄️</div>
-                
-                    <p>Faça upload de um arquivo para começar!</p>
+
+                <p>Faça upload de um arquivo para começar!</p>
             </div>
             <div class="quantidade"></div>
             <div class="download-area" id="download-area">
@@ -44,13 +61,17 @@
             </div>
         </div>
     </div>
-    <!--bibliotecas necessárias-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
-    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    
+    <!-- Biblioteca PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        // Configura o worker do PDF.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+    </script>
 
-    <!--Meu script-->
-    <script src="script.js"></script>
+    <!-- Seu script -->
+    <script src="/JavaScript/script.js"></script>
+
 </body>
+
 </html>
