@@ -1,0 +1,12 @@
+*.json
+*.js
+*.ts
+/node_modules/undici-types
+*.md
+*.yml
+*.map
+/node_modules/sprintf-js
+/node_modules/serialize-error
+/node_modules
+*.wasm
+*.default
