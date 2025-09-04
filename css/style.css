@@ -79,6 +79,11 @@ transition: all 300ms ease;
 .process{
     text-align: center;
 }
+.process-area{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
 .empty-icon{
     font-size: 4rem;
     color: #cbd5e0;
@@ -92,20 +97,10 @@ transition: all 300ms ease;
 .conteudo{
     background-color: #cbd5e0;
 }
-.erro{
-    text-align: center;
-    color: #fff;
-    background-color: #f44336;
-    border: #000 1px solid;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);;
-    font-size: 17px;
-    margin: 10px 0;
-    display: block;
-    line-height: 1.5;
-}
+
     .btn-download{
         display: inline-block;
-        background-color: rgb(137, 187, 137);
+        background-color: rgb(1, 53, 1);
         color: #fff;
         border: 1px #000 solid;
         border-radius: 5px;
@@ -113,11 +108,14 @@ transition: all 300ms ease;
         padding: 5px;
         transition: all 200ms ease;
         text-decoration: none;
+        font-size: 25px;
+        margin-top: 20px;
     }
     .btn-download:hover{
         background-color: rgb(5, 255, 5);
         color: #000;
         transform: translateY(-5px);
+        cursor: pointer;
     }
     .btn-download:active{
         transform: translateY(0px)
@@ -127,3 +125,20 @@ transition: all 300ms ease;
         column-gap: 30px;
         justify-content: center;
     }
+    .tabela-excel{
+        margin-top: 30px;
+        border: 1px solid #000;
+        border-radius: 5px;
+    }
+    tr{
+        transition: all 200ms ease-in;
+    }
+    tr:hover{
+        color: #000000;
+        background-color: #1eff01;
+        transform: scale(1.10) translateY(-10px);
+       cursor: pointer;
+        
+    }
+
+

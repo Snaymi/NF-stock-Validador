@@ -35,10 +35,10 @@
                 📂
             </div>
             <div class="upload-text">
-                Arraste aqui o ANEXO 1
+                Coloque aqui o ANEXO I
             </div>
             <button class="btn" id="btn-arquivo2">Selecionar Arquivos</button>
-            <input type="file" id="file-input2" />
+            <input type="file" id="file-input2">
             <div class="file-info">
                 <strong>Tipos de arquivos suportados:</strong>
                 .PDF <br>
@@ -50,16 +50,16 @@
         <h2>📊 Processamentos</h2>
         <div id="process-area" class="process-area">
             <pre id="area-erros" class="erro"></pre>
-            <div id="empty-state">
-                <div class="empty-icon">🗄️</div>
+            
 
-                <p>Faça upload de um arquivo para começar!</p>
             </div>
-            <div class="quantidade"></div>
-            <div class="download-area" id="download-area">
-                <div class="download-btn" id="download-btn"></div>
-            </div>
+                <div id="tabela-area"></div>
+                <div class="botoes-download">
+                    <div id="download-btn-txt"></div>
+                    <div id="download-btn-excel"></div>
+                </div>
         </div>
+    </div>
     </div>
     <!-- Biblioteca PDF.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -68,6 +68,7 @@
         pdfjsLib.GlobalWorkerOptions.workerSrc =
             "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
     <!-- Seu script -->
     <script src="/JavaScript/script.js"></script>
