@@ -1,5 +1,4 @@
 *.json
-*.js
 *.ts
 /node_modules/undici-types
 *.md
