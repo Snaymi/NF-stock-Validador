@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Processor</title>
+    <link rel="shortcut icon" href="img/settings-icon.svg" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -49,19 +50,26 @@
     <div class="process container">
         <h2>📊 Processamentos</h2>
         <div id="process-area" class="process-area">
-            <pre id="area-erros" class="erro"></pre>
-            
-
-            </div>
-                <div id="tabela-area"></div>
-                <div class="all-download">
-                    <div id="download-btn-txt"></div>
-                    <div id="download-btn-excel"></div>
-                    <div id="btn-filtrar-ncm" class="btn-filter">Filtrar Excel pelos NCMs do PDF</div>
-                    
+            <span id="dropdown" class="dropdown">
+                <div>
+                <img src="img/dropdown.svg" height="20" alt="">
                 </div>
+                <div id="tabela-area">
+                </div>
+            </span>
+            <pre id="area-erros" class="erro"></pre>
+
+
         </div>
-        
+
+
+        <div class="all-download">
+            <div id="download-btn-txt"></div>
+            <div id="download-btn-excel" class="download-btn-excel"></div>
+            <div id="btn-filtrar-ncm" class="btn-filter">Filtrar Excel pelos NCMs do PDF</div>
+        </div>
+    </div>
+
 
     </div>
     </div>

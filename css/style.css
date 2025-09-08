@@ -115,11 +115,11 @@ pre {
 .conteudo {
     background-color: #cbd5e0;
 }
-
-.all-download {
+.download-btn-excel{
     display: flex;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 20px;
+    column-gap: 20px;
 }
 .btn-filter{
     display:none;
@@ -147,7 +147,7 @@ pre {
     padding: 5px;
     transition: all 200ms ease;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 18px;
     margin-top: 20px;
 }
 
@@ -157,7 +157,6 @@ pre {
     transform: translateY(-5px);
     cursor: pointer;
 }
-
 .btn-download:active {
     transform: translateY(0px)
 }
@@ -183,5 +182,29 @@ tr:hover {
     background-color: #1eff01;
     transform: scale(1.10) translateY(-10px);
     cursor: pointer;
+}
+.dropdown{
+    overflow: hidden;
+}
+.dropdown div{
+    display: flex;
+    justify-content: end;
+}
 
+.dropdown img{
+    transform: rotate(90deg);
+    transition: 300ms ease;
+}
+.dropdown.open img{
+    transform: rotate(0deg);
+}
+.dropdown .tabela-excel{
+    transform: translateY(-120%);
+    transition: 500ms;
+}
+
+.dropdown.open .tabela-excel{
+    transform: translateY(0%);
+    height: auto;
+    max-height: 1000px;
 }
