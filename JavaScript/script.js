@@ -164,6 +164,12 @@ function filtrarTabelaPorNCMECFOP() {
 
 
     console.log(`✅ Tabela atualizada. ${removidas} linha(s) removida(s por NCM).`);
+
+    // 🚀 Aplica também o filtro das NF-es (vBCST = 0) se existir
+    if (window.nfesSemST && window.nfesSemST.length > 0) {
+        filtrarTabelaPorNotasST();
+        console.log("✅ Filtro NF-e reaplicado após o filtro de NCM/CFOP.");
+    }
 }
 
 
@@ -175,19 +181,24 @@ async function lerExcel(file) {
     const data = await file.arrayBuffer();
     const workbook = XLSX.read(data, { type: 'array' });
 
-    // Pega a primeira aba
     const primeiraAba = workbook.SheetNames[0];
     const sheet = workbook.Sheets[primeiraAba];
 
-    // Converte para array de arrays
     const linhas = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-    linhasOriginaisExcel = linhas; // salva para exportação    
+    linhasOriginaisExcel = linhas;
     console.log(`📄 Total de linhas: ${linhas.length}`);
 
     exibirTabelaFiltrada(linhas);
-    criarBotaoFiltrarTabela(); // cria o botão de download
-    criarBotaoDownloadExcel(); // cria o botão de download
+    criarBotaoFiltrarTabela();
+    criarBotaoDownloadExcel();
+
+    // 🚀 Se já tiver NF-es válidas, aplica automaticamente o filtro final
+    if (window.nfesSemST && window.nfesSemST.length > 0) {
+        filtrarTabelaPorNotasST();
+        alert(`✅ Excel filtrado automaticamente com NF-es válidas (vBCST = 0).
+Total aceitas: ${window.nfesSemST.length}`);
+    }
 }
 
 function exibirTabelaFiltrada(linhas) {
