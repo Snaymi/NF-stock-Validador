@@ -33,17 +33,33 @@
         </div>
         <div class="upload-area " id="upload-area2">
             <div class="upload-icon">
-                📂
+                📜
             </div>
             <div class="upload-text">
                 Coloque aqui o ANEXO I
             </div>
             <button class="btn" id="btn-arquivo2">Selecionar Arquivos</button>
-            <input type="file" id="file-input2">
+            <input type="file" id="file-input2" accept=".pdf">
             <div class="file-info">
                 <strong>Tipos de arquivos suportados:</strong>
                 .PDF <br>
                 <strong>Tamanho máximo:</strong> Ainda não definido
+            </div>
+        </div>
+        <div class="upload-area " id="upload-area3">
+            <div class="upload-icon">
+                📑
+            </div>
+            <div class="upload-text">
+                Coloque aqui as NFE's
+            </div>
+            <button class="btn" id="btn-arquivo3">Selecionar Arquivos</button>
+            <input type="file" id="file-input3" multiple accept=".xml">
+            <div class="file-info">
+                <strong>Tipos de arquivos suportados:</strong>
+                .XML <br>
+                <strong>Tamanho máximo:</strong> Ainda não definido
+                <p>Selecione <span class="emphasis">TODAS</span> as NFEs  referentes ao relatório já enviado</p>
             </div>
         </div>
     </div>
@@ -83,6 +99,7 @@
     <!-- Seu script -->
     <script src="JavaScript/script.js"></script>
     <script src="JavaScript/btn.js"></script>
+    <script src="JavaScript/st-analyzer.js"></script>
 
 </body>
 

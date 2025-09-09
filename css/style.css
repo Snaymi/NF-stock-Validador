@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -6,6 +7,7 @@
 
 body {
     background: linear-gradient(135deg, #0375f8, #b9fca5);
+    font-family: 'Roboto', sans-serif;
 }
 
 p {
@@ -208,3 +210,18 @@ tr:hover {
     height: auto;
     max-height: 1000px;
 }
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.emphasis {
+  animation: blink 1100ms infinite;
+  color: #005e1c;
+  font-weight: 700;
+}
+

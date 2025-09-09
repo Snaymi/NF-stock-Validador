@@ -341,6 +341,45 @@ function filtrarExcelPorNCM() {
     // XLSX.utils.book_append_sheet(wb, ws, 'Filtrado por NCM');
     // XLSX.writeFile(wb, 'Excel_Filtrado_Por_NCM.xlsx');
 }
+
+function filtrarTabelaPorNotasST() {
+    if (!window.nfesSemST || !window.nfesSemST.length) {
+        alert("❌ Nenhuma NF-e válida carregada (vBCST = 0).");
+        return;
+    }
+
+    if (!linhasOriginaisExcel.length) {
+        alert("❌ Nenhum Excel carregado para filtrar.");
+        return;
+    }
+
+    // Cabeçalho
+    const cabecalho = linhasOriginaisExcel[0].map(h => String(h || '').trim().toLowerCase());
+    const idxNumero = cabecalho.findIndex(h => h === 'número' || h === 'numero');
+
+    if (idxNumero === -1) {
+        alert("❌ Coluna 'Número' não encontrada no Excel.");
+        return;
+    }
+
+    // Mantém apenas as linhas cujo Número está nas NFEs válidas
+    const filtradas = [linhasOriginaisExcel[0]];
+    let removidas = 0;
+
+    linhasOriginaisExcel.slice(1).forEach(linha => {
+        const numero = String(linha[idxNumero] || '').trim();
+        if (window.nfesSemST.includes(numero)) {
+            filtradas.push(linha);
+        } else {
+            removidas++;
+        }
+    });
+
+    exibirTabelaFiltrada(filtradas);
+    linhasFiltradas = filtradas;
+
+    console.log(`✅ Filtro NF-e aplicado: ${filtradas.length - 1} linha(s) válidas, ${removidas} removida(s).`);
+}
 // [3] Função para criar botão de download do TXT - antigo
 // exibir o texto extraído do PDF no console.log
 function exibirTexto(texto) {
