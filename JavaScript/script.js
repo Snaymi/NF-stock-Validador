@@ -80,7 +80,18 @@ function criarBotaoFiltrarTabela() {
 
     downloadArea.appendChild(btn);
 }
+function criarBotaoDownloadCFOP6() {
+    const downloadArea = document.getElementById('download-btn-excel');
+    if (document.getElementById('btn-download-cfop6')) return;
 
+    const btn = document.createElement('button');
+    btn.id = 'btn-download-cfop6';
+    btn.textContent = '📥 Baixar somente CFOP 6 (Número + Fornecedor)';
+    btn.className = 'btn-download';
+    btn.addEventListener('click', baixarExcelCFOP6);
+
+    downloadArea.appendChild(btn);
+}
 
 function baixarExcelFiltrado() {
     if (!linhasFiltradas || !linhasFiltradas.length) {
@@ -93,7 +104,43 @@ function baixarExcelFiltrado() {
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Filtrado');
     XLSX.writeFile(workbook, 'filtrado.xlsx');
 }
+function baixarExcelCFOP6() {
+    if (!linhasFiltradas || !linhasFiltradas.length) {
+        alert('❌ Nenhum dado filtrado disponível.');
+        return;
+    }
 
+    // Cabeçalho original para localizar colunas
+    const cabecalho = linhasFiltradas[0].map(h => String(h || '').trim().toLowerCase());
+    const idxNumero = cabecalho.findIndex(h => h === 'número' || h === 'numero');
+    const idxFornecedor = cabecalho.findIndex(h => h === 'fornecedor');
+    const idxCFOP = cabecalho.findIndex(h => h === 'cfop');
+
+    if (idxNumero === -1 || idxFornecedor === -1 || idxCFOP === -1) {
+        alert('❌ Colunas necessárias não encontradas (Número, Fornecedor ou CFOP).');
+        return;
+    }
+
+    // Monta nova tabela apenas com CFOP 6
+    const novaTabela = [["Número", "Fornecedor"]];
+    linhasFiltradas.slice(1).forEach(linha => {
+        const cfop = String(linha[idxCFOP] || '').trim();
+        if (cfop.startsWith("6")) {
+            novaTabela.push([linha[idxNumero], linha[idxFornecedor]]);
+        }
+    });
+
+    if (novaTabela.length === 1) {
+        alert('⚠️ Nenhuma linha encontrada com CFOP 6.');
+        return;
+    }
+
+    // Exporta novo Excel
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.aoa_to_sheet(novaTabela);
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'CFOP6');
+    XLSX.writeFile(workbook, 'CFOP6_Notas.xlsx');
+}
 
 function filtrarTabelaPorNCMECFOP() {
     if (!window.listaNCMs || !window.listaNCMs.length) {
@@ -192,6 +239,7 @@ async function lerExcel(file) {
     exibirTabelaFiltrada(linhas);
     criarBotaoFiltrarTabela();
     criarBotaoDownloadExcel();
+    criarBotaoDownloadCFOP6();
 
     // 🚀 Se já tiver NF-es válidas, aplica automaticamente o filtro final
     if (window.nfesSemST && window.nfesSemST.length > 0) {
