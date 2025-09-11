@@ -81,29 +81,44 @@ function criarBotaoFiltrarTabela() {
     downloadArea.appendChild(btn);
 }
 function criarBotaoDownloadCFOP6() {
-    const downloadArea = document.getElementById('download-btn-excel');
-    if (document.getElementById('btn-download-cfop6')) return;
+    // Remove botão existente (se houver)
+    const botaoExistente = document.getElementById('btn-download-cfop6');
+    if (botaoExistente) {
+        botaoExistente.remove();
+    }
 
+    // Verifica se existem linhas com CFOP 6
+    if (!temCFOP6NosFiltrados()) {
+        console.log('📊 Nenhuma linha CFOP 6 encontrada - botão não será exibido');
+        return;
+    }
+
+    const downloadArea = document.getElementById('download-btn-excel');
     const btn = document.createElement('button');
     btn.id = 'btn-download-cfop6';
-    btn.textContent = '📥 Baixar somente CFOP 6 (Número + Fornecedor)';
+    btn.textContent = '🎯 Baixar somente CFOP 6 (Número + Fornecedor)';
     btn.className = 'btn-download';
     btn.addEventListener('click', baixarExcelCFOP6);
 
     downloadArea.appendChild(btn);
+    console.log('✅ Botão CFOP 6 criado - foram encontradas linhas com CFOP 6');
 }
 
-function baixarExcelFiltrado() {
-    if (!linhasFiltradas || !linhasFiltradas.length) {
-        alert('❌ Nenhum dado filtrado disponível para exportar.');
-        return;
-    }
+function temCFOP6NosFiltrados() {
+    if (!linhasFiltradas || linhasFiltradas.length <= 1) return false;
 
-    const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.aoa_to_sheet(linhasFiltradas);
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Filtrado');
-    XLSX.writeFile(workbook, 'filtrado.xlsx');
+    const cabecalho = linhasFiltradas[0].map(h => String(h || '').trim().toLowerCase());
+    const idxCFOP = cabecalho.findIndex(h => h === 'cfop');
+    
+    if (idxCFOP === -1) return false;
+
+    // Verifica se existe pelo menos uma linha com CFOP 6
+    return linhasFiltradas.slice(1).some(linha => {
+        const cfop = String(linha[idxCFOP] || '').trim();
+        return cfop.startsWith('6');
+    });
 }
+
 function baixarExcelCFOP6() {
     if (!linhasFiltradas || !linhasFiltradas.length) {
         alert('❌ Nenhum dado filtrado disponível.');
@@ -123,14 +138,17 @@ function baixarExcelCFOP6() {
 
     // Monta nova tabela apenas com CFOP 6
     const novaTabela = [["Número", "Fornecedor"]];
+    let countCFOP6 = 0;
+
     linhasFiltradas.slice(1).forEach(linha => {
         const cfop = String(linha[idxCFOP] || '').trim();
         if (cfop.startsWith("6")) {
             novaTabela.push([linha[idxNumero], linha[idxFornecedor]]);
+            countCFOP6++;
         }
     });
 
-    if (novaTabela.length === 1) {
+    if (countCFOP6 === 0) {
         alert('⚠️ Nenhuma linha encontrada com CFOP 6.');
         return;
     }
@@ -140,7 +158,22 @@ function baixarExcelCFOP6() {
     const worksheet = XLSX.utils.aoa_to_sheet(novaTabela);
     XLSX.utils.book_append_sheet(workbook, worksheet, 'CFOP6');
     XLSX.writeFile(workbook, 'CFOP6_Notas.xlsx');
+
+    console.log(`✅ Excel CFOP 6 exportado com ${countCFOP6} linha(s)`);
 }
+
+function baixarExcelFiltrado() {
+    if (!linhasFiltradas || !linhasFiltradas.length) {
+        alert('❌ Nenhum dado filtrado disponível para exportar.');
+        return;
+    }
+
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.aoa_to_sheet(linhasFiltradas);
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Filtrado');
+    XLSX.writeFile(workbook, 'filtrado.xlsx');
+}
+
 
 function filtrarTabelaPorNCMECFOP() {
     if (!window.listaNCMs || !window.listaNCMs.length) {
@@ -211,6 +244,8 @@ function filtrarTabelaPorNCMECFOP() {
 
 
     console.log(`✅ Tabela atualizada. ${removidas} linha(s) removida(s por NCM).`);
+
+    criarBotaoDownloadCFOP6();
 
     // 🚀 Aplica também o filtro das NF-es (vBCST = 0) se existir
     if (window.nfesSemST && window.nfesSemST.length > 0) {
@@ -311,7 +346,7 @@ function exibirTabelaFiltrada(linhas) {
 
         tabela.appendChild(tr);
     });
-
+    criarBotaoDownloadCFOP6(); // 🎯 Verifica CFOP 6 e cria botão se necessário
     tabelaArea.appendChild(tabela);
 }
 
@@ -438,6 +473,8 @@ function filtrarTabelaPorNotasST() {
     linhasFiltradas = filtradas;
 
     console.log(`✅ Filtro NF-e aplicado: ${filtradas.length - 1} linha(s) válidas, ${removidas} removida(s).`);
+
+    criarBotaoDownloadCFOP6();
 }
 // [3] Função para criar botão de download do TXT - antigo
 // exibir o texto extraído do PDF no console.log
